@@ -17,7 +17,10 @@
             <tr>{{ $category->description }}</tr>
             <tr>{{ $category->created_at }}</tr>
             <tr>{{ $category->updated_at }}</tr>
-            <tr></tr>
+            <tr>
+                <a class="btn btn-primary btn-sm" href="/admin/category/edit/{{ $category->id }} "><i class="fas fa-edit"></i></a>
+
+            </tr>
         @endforeach
         <tr></tr>
     </tbody>

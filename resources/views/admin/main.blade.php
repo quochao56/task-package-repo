@@ -25,10 +25,9 @@
                     <a href="{{ route('logout') }}"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                 </li>
-                <form id="logout-form" method="POST"
-                                                        action="{{ route('logout') }}">
-                                                        @csrf
-                                                    </form>
+                <form id="logout-form" method="POST" action="{{ route('logout') }}">
+                    @csrf
+                </form>
             </ul>
         </nav>
         <!-- /.navbar -->

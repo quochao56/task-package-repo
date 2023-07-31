@@ -19,7 +19,7 @@ class CategoryServiceProvider extends ServiceProvider
             CategoryRepositoryInterface::class,
             CategoryRepository::class
         );
-        $this->app['router']->aliasMiddleware('role', Role::class);
+        // $this->app['router']->aliasMiddleware('role', Role::class);
     }
 
     /**

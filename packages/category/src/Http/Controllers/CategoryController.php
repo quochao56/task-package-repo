@@ -37,7 +37,8 @@ class CategoryController extends Controller
     {
         $category = $this->categoryRepo->find($id);
 
-        return view('admin.category.add', [ 'category' => $category]);
+        dd($category);
+        return view('admin.category.add', ['title' => 'Sửa danh mục', 'category' => $category]);
     }
 
     public function store(Request $request)
@@ -54,16 +55,20 @@ class CategoryController extends Controller
         return redirect()->route("admin.category.index");
     }
 
-    // public function update(Request $request, $id)
-    // {
-    //     $data = $request->all();
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+        $data = $request->all();
 
-    //     //... Validation here
+        //... Validation here
 
-    //     $product = $this->productRepo->update($id, $data);
+        $product = $this->categoryRepo->update($id, $data);
 
-    //     return view('home.products');
-    // }
+        return view('admin.category.index');
+    }
 
     // public function destroy($id)
     // {
