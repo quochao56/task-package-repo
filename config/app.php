@@ -169,6 +169,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         QH\Category\Providers\CategoryServiceProvider::class,
+        QH\Product\Providers\ProductServiceProvider::class,
     ])->toArray(),
 
     /*

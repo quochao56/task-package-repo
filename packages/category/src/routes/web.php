@@ -12,7 +12,6 @@ Route::middleware(['auth', 'web', 'role:admin'])->group(function () {
             Route::get('edit/{id}', [CategoryController::class, 'show'])->name('admin.category.edit_category');
             Route::put('edit/{id}', [CategoryController::class, 'update']);
             Route::delete('destroy/{id}', [CategoryController::class, 'destroy'])->name('admin.category.destroy');
-            // Route::get('destroy', [CategoryController::class, 'destroy'])->name('admin.category.destroy');
         });
     });
 });

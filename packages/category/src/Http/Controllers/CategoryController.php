@@ -8,9 +8,6 @@ use QH\Category\Repository\CategoryRepositoryInterface;
 
 class CategoryController extends Controller
 {
-    // public function index(){
-    //     return view('category::index');
-    // }
 
     protected $categoryRepo;
 
@@ -47,6 +44,7 @@ class CategoryController extends Controller
             'description' => 'required',
         ]);
 
+        $request->except('_token');
         $data = $request->all();
         try {
             $category = $this->categoryRepo->create($data);
