@@ -2,8 +2,9 @@
 
 @section('content')
     <form action="" method="POST">
+        @csrf
+        @method("POST")
         <div class="card-body">
-            @csrf
             <div class="form-group">
                 <label for="menu">Tên Danh Mục</label>
                 <input type="text" name="name" class="form-control" value="{{ old('name') }}" placeholder="Nhập tên danh mục">
@@ -13,12 +14,12 @@
                 <label>Mô Tả</label>
                 <textarea name="description" class="form-control" value="{{ old('description') }}"></textarea>
             </div>
-
         </div>
 
         <div class="card-footer">
             <button type="submit" class="btn btn-primary">Tạo Danh Mục</button>
         </div>
-        
+
     </form>
 @endsection
+

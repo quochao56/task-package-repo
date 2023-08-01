@@ -11,7 +11,6 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="/template/admin/dist/css/adminlte.min.css">
 
-  <link rel="stylesheet" href="{{ asset('qh/category/css/style.css') }}">
-  
+
   <meta name="csrf-token" content="{{ csrf_token() }}">
   @yield('head')

@@ -6,13 +6,13 @@
             @csrf
             @method("PUT")
             <div class="form-group">
-                <label for="menu">Tên Danh Mục</label>
-                <input type="text" name="name" class="form-control"  placeholder="Nhập tên danh mục">
+                <label for="name">Tên Danh Mục</label>
+                <input type="text" name="name" value="{{ $category->name }}" class="form-control"  placeholder="Nhập tên danh mục">
             </div>
 
             <div class="form-group">
                 <label>Mô Tả </label>
-                <textarea name="description" class="form-control"></textarea>
+                <textarea name="description" class="form-control">{{ $category->description }}</textarea>
             </div>
 
         </div>

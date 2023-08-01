@@ -2,8 +2,8 @@
 
 namespace QH\Category\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use QH\Category\Repository\CategoryRepositoryInterface;
 
 class CategoryController extends Controller
@@ -25,20 +25,19 @@ class CategoryController extends Controller
 
         return view('admin.category.index', [
             'title' => 'Danh sánh danh mục',
-            'categories' => $categories
+            'categories' => $categories,
         ]);
     }
 
     public function create()
     {
-        return view('admin.category.add', [ 'title' => 'Thêm danh mục mới']);
+        return view('admin.category.add', ['title' => 'Thêm danh mục mới']);
     }
     public function show($id)
     {
         $category = $this->categoryRepo->find($id);
 
-        dd($category);
-        return view('admin.category.add', ['title' => 'Sửa danh mục', 'category' => $category]);
+        return view('admin.category.edit', ['title' => 'Sửa danh mục', 'category' => $category]);
     }
 
     public function store(Request $request)
@@ -49,9 +48,13 @@ class CategoryController extends Controller
         ]);
 
         $data = $request->all();
-
-        $product = $this->categoryRepo->create($data);
-
+        try {
+            $category = $this->categoryRepo->create($data);
+            session()->flash('success', 'Thêm Danh Mục Thành Công');
+        } catch (\Exception $err) {
+            session()->flash('error', $err->getMessage());
+            return false;
+        }
         return redirect()->route("admin.category.index");
     }
 
@@ -62,18 +65,25 @@ class CategoryController extends Controller
             'description' => 'required',
         ]);
         $data = $request->all();
-
-        //... Validation here
-
-        $product = $this->categoryRepo->update($id, $data);
-
-        return view('admin.category.index');
+        try {
+            $category = $this->categoryRepo->update($id, $data);
+            session()->flash('success', 'Sửa Danh Mục Thành Công');
+        } catch (\Exception $err) {
+            session()->flash('error', $err->getMessage());
+            return false;
+        }
+        return redirect()->route("admin.category.index");
     }
+    public function destroy($id)
+    {
+        try {
+            $result = $this->categoryRepo->delete($id);
+            session()->flash('success', 'Xóa Danh Mục Thành Công');
+        } catch (\Exception $err) {
+            session()->flash('error', $err->getMessage());
+            return false;
+        }
 
-    // public function destroy($id)
-    // {
-    //     $this->productRepo->delete($id);
-        
-    //     return view('home.products');
-    // }
+        return redirect()->route("admin.category.index");
+    }
 }

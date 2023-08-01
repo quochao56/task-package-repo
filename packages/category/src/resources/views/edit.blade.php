@@ -4,8 +4,9 @@
     <form action="" method="POST">
         <div class="card-body">
             @csrf
+            @method("PUT")
             <div class="form-group">
-                <label for="menu">Tên Danh Mục</label>
+                <label for="name">Tên Danh Mục</label>
                 <input type="text" name="name" value="{{ $category->name }}" class="form-control"  placeholder="Nhập tên danh mục">
             </div>
 
