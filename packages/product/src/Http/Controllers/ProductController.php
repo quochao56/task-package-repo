@@ -4,13 +4,14 @@ namespace QH\Product\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use QH\Product\Repository\ProductRepository;
 use QH\Product\Repository\ProductRepositoryInterface;
 
 class ProductController extends Controller
 {
     protected $productRepo;
 
-    public function __construct(ProductRepositoryInterface $productRepo)
+    public function __construct(ProductRepository $productRepo)
     {
         $this->productRepo = $productRepo;
     }

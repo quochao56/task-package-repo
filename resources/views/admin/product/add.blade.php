@@ -17,7 +17,7 @@
         </div>
         <div class="form-group">
             <label for="qty">Số lượng</label>
-            <input type="number" name="qty" value="{{ old('qty') }}" class="form-control" data-max="120" pattern="[0-9]*">
+            <input type="number" name="qty" value="{{ old('qty') }}" min="1" class="form-control" data-max="120" pattern="[0-9]*">
         </div>
 
         <div class="form-group">

@@ -14,11 +14,11 @@
         </div>
         <div class="form-group">
             <label for="menu">Giá Sản Phẩm</label>
-            <input type="text" name="price" value="{{ $product->price }}" class="form-control" >
+            <input type="text" name="price" value="{{ $product->price }}"  class="form-control" >
         </div>
         <div class="form-group">
             <label for="qty">Số lượng</label>
-            <input type="number" name="qty" value="{{ $product->qty }}" class="form-control" data-max="120" pattern="[0-9]*">
+            <input type="number" name="qty" value="{{ $product->qty }}" min="1" class="form-control" data-max="120" pattern="[0-9]*">
         </div>
 
         <div class="form-group">

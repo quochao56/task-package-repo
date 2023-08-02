@@ -6,6 +6,7 @@ use App\Models\User;
 use QH\Category\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use QH\Order\Models\PurchaseProduct;
 
 class Product extends Model
 {
@@ -30,5 +31,8 @@ class Product extends Model
     public function user()
     {
         return $this->belongsTo(User::class,'author_id');
+    }
+    public function purchaseProducts(){
+        return $this->hasMany(PurchaseProduct::class, 'product_id');
     }
 }

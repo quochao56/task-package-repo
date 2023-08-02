@@ -1,0 +1,12 @@
+{
+    "name": "qh/order",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "QH\\Order\\": "packages/order/src/"
+        }
+    }
+}

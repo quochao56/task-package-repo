@@ -25,7 +25,8 @@
         "psr-4": {
             "App\\": "app/",
             "QH\\Category\\": "packages/category/src",
-            "QH\\Product\\": "packages/product/src"
+            "QH\\Product\\": "packages/product/src",
+            "QH\\Order\\": "packages/order/src/"
 
         }
     },
