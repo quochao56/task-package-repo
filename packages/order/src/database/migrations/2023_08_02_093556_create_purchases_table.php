@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('total_qty');
             $table->integer('shipping_cost')->default(0);
             $table->integer('total_amount');
-            $table->longText('note');
+            $table->longText('note')->nullable();
             $table->enum('status',['pending','finished'])->default('pending');
             $table->date('purchase_date')->default(DB::raw('(CURRENT_DATE)'));
             $table->timestamps();

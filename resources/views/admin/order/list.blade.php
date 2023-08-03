@@ -21,8 +21,8 @@
                 <td>{{ $purchase->shipping_cost}}</td>
                 <td>{{ $purchase->total_amount}}</td>
                 <td>{{ $purchase->note}}</td>
-                <td>{{ $purchase->status}}</td>
-                <td>{{ $purchase->purchase_date}}</td>
+                <td>{!! \QH\Order\Helpers\OrderHelper::active($purchase->status)  !!}</td>
+                <td>{{ $purchase->created_at}}</td>
                 <td>
                     <a href="{{ route('admin.orders.detail', $purchase->id) }}"><i class="fa-solid fa-circle-info" style="color: #e6ea10;"></i></a>
                 </td>

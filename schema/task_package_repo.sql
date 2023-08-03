@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 31, 2023 at 11:00 AM
+-- Generation Time: Aug 03, 2023 at 03:06 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -40,10 +40,10 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `description`, `created_at`, `updated_at`) VALUES
-(1, 'Electric Devices', 'Electric Devices Des', '2023-07-31 07:02:32', NULL),
-(2, 'Normal Devices', 'Normal Devices des', '2023-07-31 07:02:58', NULL),
-(3, 'Story', 'Story Description', '2023-07-31 02:53:54', '2023-07-31 02:53:54'),
-(4, 'Blog', 'Blog', '2023-07-31 03:07:55', '2023-07-31 03:07:55');
+(4, 'Blog', 'Blog Description', '2023-07-31 03:07:55', '2023-07-31 19:40:56'),
+(5, 'Novel', 'Novel US change', '2023-07-31 19:28:51', '2023-07-31 19:35:00'),
+(8, 'Story', 'Story Desc update', '2023-07-31 21:28:37', '2023-07-31 21:28:51'),
+(10, 'Romantic', 'Romantic', '2023-07-31 23:28:21', '2023-07-31 23:28:21');
 
 -- --------------------------------------------------------
 
@@ -82,7 +82,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (6, '2014_10_12_100000_create_password_reset_tokens_table', 1),
 (7, '2019_08_19_000000_create_failed_jobs_table', 1),
 (8, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(9, '2023_07_31_045035_create_categories_table', 2);
+(9, '2023_07_31_045035_create_categories_table', 2),
+(10, '2023_08_01_044532_create_products_table', 3),
+(13, '2023_08_02_093556_create_purchases_table', 4),
+(14, '2023_08_02_093616_create_purchase_products_table', 4);
 
 -- --------------------------------------------------------
 
@@ -114,6 +117,92 @@ CREATE TABLE `personal_access_tokens` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `products`
+--
+
+CREATE TABLE `products` (
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `thumb` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `price` decimal(8,2) NOT NULL,
+  `qty` int NOT NULL,
+  `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `category_id` bigint UNSIGNED NOT NULL,
+  `author_id` bigint UNSIGNED NOT NULL,
+  `author_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`id`, `name`, `thumb`, `price`, `qty`, `content`, `category_id`, `author_id`, `author_type`, `created_at`, `updated_at`) VALUES
+(1, 'Harry Potter 1', '/storage/uploads/1690886327.harry-potter.jpg', '100.00', 1, '<p>content</p>', 8, 5, 'Novelist', '2023-08-01 04:58:09', '2023-08-01 03:38:48'),
+(2, 'Fans', '/storage/uploads/1690881925.harry-potter.jpg', '2000.00', 1, '<p>content fans</p>', 4, 7, 'Blog', '2023-08-01 04:58:09', '2023-08-01 03:39:15'),
+(7, 'Harry Potter 2', '/storage/uploads/1690886372.harry-potter.jpg', '333.00', 1, '<p>aaa</p>', 5, 2, 'Novelist', '2023-08-01 03:12:03', '2023-08-01 03:39:34'),
+(8, 'Harry Potter 3', '/storage/uploads/1690886391.harry-potter.jpg', '333.00', 1, '<p>aaa</p>', 5, 4, 'Novelist', '2023-08-01 03:35:13', '2023-08-01 03:39:52'),
+(9, 'Harry Potter 4', '/storage/uploads/1690886409.harry-potter.jpg', '333.00', 1, '<p>content</p>', 5, 2, 'Novelist', '2023-08-01 03:38:11', '2023-08-01 03:40:11');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `purchases`
+--
+
+CREATE TABLE `purchases` (
+  `id` bigint UNSIGNED NOT NULL,
+  `total_qty` int NOT NULL,
+  `shipping_cost` int NOT NULL DEFAULT '0',
+  `total_amount` int NOT NULL,
+  `note` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `status` enum('pending','finished') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
+  `purchase_date` date NOT NULL DEFAULT (curdate()),
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `purchases`
+--
+
+INSERT INTO `purchases` (`id`, `total_qty`, `shipping_cost`, `total_amount`, `note`, `status`, `purchase_date`, `created_at`, `updated_at`) VALUES
+(1, 5, 0, 20000, 'some note', 'finished', '2023-08-02', '2023-08-02 09:56:02', NULL),
+(2, 10, 0, 300000, 'some note', 'pending', '2023-08-02', '2023-08-02 09:56:02', NULL),
+(9, 4, 0, 1332, 'note', 'pending', '2023-08-03', '2023-08-02 20:01:06', '2023-08-02 20:01:06');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `purchase_products`
+--
+
+CREATE TABLE `purchase_products` (
+  `id` bigint UNSIGNED NOT NULL,
+  `purchase_id` bigint UNSIGNED NOT NULL,
+  `product_id` bigint UNSIGNED NOT NULL,
+  `qty` int NOT NULL,
+  `price` int NOT NULL,
+  `total_amount` int NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `purchase_products`
+--
+
+INSERT INTO `purchase_products` (`id`, `purchase_id`, `product_id`, `qty`, `price`, `total_amount`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 2, 5000, 10000, '2023-08-02 10:02:38', NULL),
+(2, 1, 1, 2, 10000, 20000, '2023-08-02 10:03:39', NULL),
+(3, 2, 8, 20, 2000, 40000, '2023-08-02 10:03:39', NULL),
+(6, 9, 8, 2, 333, 666, NULL, NULL),
+(7, 9, 9, 2, 333, 666, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -187,6 +276,28 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `products_category_id_foreign` (`category_id`),
+  ADD KEY `products_author_id_foreign` (`author_id`);
+
+--
+-- Indexes for table `purchases`
+--
+ALTER TABLE `purchases`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `purchase_products`
+--
+ALTER TABLE `purchase_products`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `purchase_products_purchase_id_foreign` (`purchase_id`),
+  ADD KEY `purchase_products_product_id_foreign` (`product_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -201,7 +312,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -213,7 +324,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -222,10 +333,46 @@ ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `purchases`
+--
+ALTER TABLE `purchases`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `purchase_products`
+--
+ALTER TABLE `purchase_products`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `products`
+--
+ALTER TABLE `products`
+  ADD CONSTRAINT `products_author_id_foreign` FOREIGN KEY (`author_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `products_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `purchase_products`
+--
+ALTER TABLE `purchase_products`
+  ADD CONSTRAINT `purchase_products_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `purchase_products_purchase_id_foreign` FOREIGN KEY (`purchase_id`) REFERENCES `purchases` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

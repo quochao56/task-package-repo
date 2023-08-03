@@ -38,8 +38,30 @@ class PurchaseController extends Controller
         return redirect()->back();
     }
 
+
+    public function update(Request $request)
+    {
+        $request->except("_token");
+        $this->purchaseService->update($request);
+
+        return redirect()->back();
+    }
+
+    public function store(Request $request){
+        $request->only(['note','qty','total_amount']);
+        $this->purchaseRepo->storeOrder($request);
+
+        return redirect()->back();
+    }
+    public function destroy($id = 0)
+    {
+        $this->purchaseService->remove($id);
+
+        return redirect()->back();
+    }
+
     public function list(){
-        $purchases = $this->purchaseRepo->getAll();
+        $purchases = $this->purchaseRepo->getAllOrders();
         return view('admin.order.list', [
             'title' => 'Danh sánh đơn hàng',
             'purchases' => $purchases
@@ -54,17 +76,4 @@ class PurchaseController extends Controller
         ]);
     }
 
-    public function update(Request $request)
-    {
-        $request->except("_token");
-        $this->purchaseService->update($request);
-
-        return redirect()->back();
-    }
-    public function destroy($id = 0)
-    {
-        $this->purchaseService->remove($id);
-
-        return redirect()->back();
-    }
 }

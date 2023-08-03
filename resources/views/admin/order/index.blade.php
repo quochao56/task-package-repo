@@ -139,13 +139,16 @@
                 <p class="summary-info total-info "><span class="title">Tổng cộng:</span><b
                         class="index">{{ number_format($total, 0, '', '.') }}</b></p>
             </div>
-            <form action="">
+            <form action="{{ route('admin.orders.store') }}" method="POST">
+                @csrf
                 <div class="form-group">
                     <label>Note</label>
                     <textarea name="note" id="note" class="form-control"></textarea>
+                    <input type="hidden" name="qty" value="{{ $qty }}">
+                    <input type="hidden" name="total_amount" value="{{ $total }}">
                 </div>
                 <div class="card-footer">
-                    <button type="submit" formaction="/add" class="btn btn-primary">Order</button>
+                    <button type="submit" class="btn btn-primary">Order</button>
                 </div>
         </div>
 
